@@ -3,13 +3,11 @@ import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import EventList from '../components/EventList';
 import EventService from '../services/event.service';
-import { useAuth } from '../contexts/AuthContext';
 
 const Home = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -29,35 +27,23 @@ const Home = () => {
 
   return (
     <Layout>
-      <section className="text-center py-12 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg shadow-md mb-12">
-        <h1 className="text-4xl font-bold mb-4">Welcome to EventSphere</h1>
-        <p className="text-xl max-w-2xl mx-auto mb-6">
+      <section style={{ textAlign: 'center', padding: '50px', background: 'linear-gradient(to right, #4A90E2, #D0021B)', color: 'white', borderRadius: '8px', boxShadow: '0px 4px 6px rgba(0,0,0,0.1)', marginBottom: '30px' }}>
+        <h1 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '15px' }}>Welcome to EventSphere</h1>
+        <p style={{ fontSize: '18px', maxWidth: '600px', margin: '0 auto 20px' }}>
           Discover exciting events in your area or create your own!
         </p>
-        
-        {isAuthenticated() ? (
-          <Link 
-            to="/new-event" 
-            className="inline-block px-6 py-3 bg-white text-primary-700 font-medium rounded-lg shadow hover:bg-gray-100 transition"
-          >
-            Create an Event
-          </Link>
-        ) : (
-          <Link 
-            to="/signup" 
-            className="inline-block px-6 py-3 bg-white text-primary-700 font-medium rounded-lg shadow hover:bg-gray-100 transition"
-          >
-            Get Started
-          </Link>
-        )}
+        <Link 
+          to="/new-event" 
+          style={{ display: 'inline-block', padding: '10px 20px', background: 'white', color: '#333', fontWeight: 'bold', borderRadius: '6px', textDecoration: 'none', boxShadow: '0px 2px 4px rgba(0,0,0,0.1)' }}
+        >
+          Create an Event
+        </Link>
       </section>
       
       <section>
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-800">Upcoming Events</h2>
-          {/* Add filters or search here if needed */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+          <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#333' }}>Upcoming Events</h2>
         </div>
-        
         <EventList events={events} loading={loading} error={error} />
       </section>
     </Layout>

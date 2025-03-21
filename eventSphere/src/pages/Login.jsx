@@ -4,18 +4,16 @@ import Layout from '../components/Layout';
 import AuthForm from '../components/AuthForm';
 import { useAuth } from '../contexts/AuthContext';
 
-const Login = () => {
+const Signup = () => {
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { signup } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = async (data) => {
+  const handleSignup = async (data) => {
     setLoading(true);
     try {
-      await login(data.email, data.password);
+      await signup(data.email, data.password);
       navigate('/dashboard');
-    } catch (error) {
-      console.error('Login error:', error);
     } finally {
       setLoading(false);
     }
@@ -24,17 +22,17 @@ const Login = () => {
   return (
     <Layout>
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="bg-primary-600 py-4 px-6">
-          <h2 className="text-2xl font-bold text-white">Sign In</h2>
+        <div className="bg-blue-600 py-4 px-6">
+          <h2 className="text-2xl font-bold text-white">Create an Account</h2>
         </div>
         <div className="p-6">
-          <AuthForm isLogin={true} onSubmit={handleLogin} />
+          <AuthForm isLogin={false} onSubmit={handleSignup} />
           
           <div className="mt-4 text-center text-sm">
             <p className="text-gray-600">
-              Don't have an account?{' '}
-              <Link to="/signup" className="text-primary-600 hover:text-primary-800">
-                Sign up here
+              Already have an account?{' '}
+              <Link to="/login" className="text-blue-600 hover:text-blue-800 font-medium">
+                Log in here
               </Link>
             </p>
           </div>
@@ -44,4 +42,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
